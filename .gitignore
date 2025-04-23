@@ -1,0 +1,7 @@
+# Node
+/node_modules
+/dist
+# IDEs
+.vscode/
+# System
+.DS_Store
