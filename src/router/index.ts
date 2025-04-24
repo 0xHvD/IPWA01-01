@@ -1,5 +1,7 @@
 // src/router/index.ts
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+
 import HomeView from '@/views/HomeView.vue'
 import DataTableView from '@/views/DataTableView.vue'
 
