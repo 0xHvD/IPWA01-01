@@ -1,5 +1,15 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+// Styles
+import './styles/main.scss'        // Globales SCSS (inkl. Vuetify-Styles)
+import './style.css'              // Zusätzliche CSS hast
+
+// Plugins
+import router from './router'
+import vuetify from './plugins/vuetify'
+
+createApp(App)
+  .use(router)     // zuerst Router registrieren
+  .use(vuetify)    // dann Vuetify registrieren
+  .mount('#app')
