@@ -1,7 +1,20 @@
 // src/styles/main.scss
-@import 'vuetify/styles';
+@use 'vuetify/styles';
 
 // Hier deine Overrides, z. B. Schriftfamilie
 body {
   font-family: 'Roboto', sans-serif;
 }
+
+/* Versteckt den Caret (Textcursor) überall */
+* {
+    caret-color: transparent !important;
+  }
+  
+  /* Stellt in Formularfeldern und editierbaren Bereichen den Caret wieder her */
+  input,
+  textarea,
+  select,
+  [contenteditable="true"] {
+    caret-color: auto !important;
+  }
