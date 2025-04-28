@@ -31,7 +31,7 @@
       </v-list>
     </v-menu>
 
-    <!-- 2. Haupt-Menü -->
+    <!-- Haupt-Menü -->
     <LocalMenu />
   </v-app-bar>
 </template>

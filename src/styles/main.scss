@@ -1,4 +1,3 @@
-// src/styles/main.scss
 @use 'vuetify/styles';
 
 // Hier deine Overrides, z. B. Schriftfamilie
@@ -8,13 +7,50 @@ body {
 
 /* Versteckt den Caret (Textcursor) überall */
 * {
-    caret-color: transparent !important;
+  caret-color: transparent !important;
+}
+
+/* Stellt in Formularfeldern und editierbaren Bereichen den Caret wieder her */
+input,
+textarea,
+select,
+[contenteditable="true"] {
+  caret-color: auto !important;
+}
+
+/* ----------------------------------------
+   MEDIA QUERIES
+   ---------------------------------------- */
+
+/* Mobile (bis 600px) */
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
   }
-  
-  /* Stellt in Formularfeldern und editierbaren Bereichen den Caret wieder her */
-  input,
-  textarea,
-  select,
-  [contenteditable="true"] {
-    caret-color: auto !important;
+  .filter-select {
+    max-width: 100% !important;  /* Filter füllt Breite */
   }
+  .mb-4 {
+    margin-bottom: 12px !important;
+  }
+}
+
+/* Tablet (601px bis 960px) */
+@media (min-width: 601px) and (max-width: 960px) {
+  body {
+    font-size: 15px;
+  }
+  .filter-select {
+    max-width: 200px !important;
+  }
+}
+
+/* Desktop (ab 961px) */
+@media (min-width: 961px) {
+  body {
+    font-size: 16px;
+  }
+  .filter-select {
+    max-width: 300px !important;
+  }
+}

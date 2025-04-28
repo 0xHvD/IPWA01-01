@@ -1,13 +1,34 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <!-- Responsive Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue + TS</title>
+
+    <!-- Content Security Policy -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src  'self';
+        style-src   'self' 'unsafe-inline';
+        img-src     'self' data:;
+        font-src    'self' data:;
+      "
+    />
+
+    <title>CO₂-Dashboard</title>
   </head>
+
   <body>
+    <!-- Vue mount point -->
     <div id="app"></div>
+
+    <!-- Vite lädt dein Main-Script -->
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

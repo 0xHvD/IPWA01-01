@@ -11,6 +11,9 @@ import './style.css'              // Zusätzliche CSS hast
 import router from './router'
 import vuetify from './plugins/vuetify'
 
+// Fonts
+import '@mdi/font/css/materialdesignicons.min.css'
+
 const app = createApp(App)
 
 app

@@ -1,14 +1,19 @@
-// vite.config.ts
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { fileURLToPath, URL } from 'url'
+import VueI18n from '@intlify/vite-plugin-vue-i18n'
+import path from 'path'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    VueI18n({
+      // Pfad zu deinen JSON-Sprachdateien
+      include: path.resolve(__dirname, './src/locales/**')
+    })
+  ],
   resolve: {
     alias: {
-      // macht @ zu deinem src-Ordner
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
 })
