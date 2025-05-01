@@ -1,72 +1,66 @@
 <template>
   <v-container fluid class="mt-6">
-    <v-row>
-      <!-- Linke Spalte: Filter -->
-      <v-col cols="12" md="3">
+    <v-row no-gutters>
+      <!-- Linke Spalte: Filter (25 % ab md) -->
+      <v-col cols="12" md="3" class="pr-4">
         <h3 class="mb-4">Filter</h3>
 
         <!-- Länder-Filter -->
         <v-select
-            v-model="selectedCountries"
-            :items="countryOptions"
-            label="Land"
-            multiple
-            chips
-            closable-chips
-            clearable
-            density="compact"
-            class="mb-1"
-            :menu-props="{
-            offsetY:            true,
-            contentClass:      'my-select-menu'
-            }"
+          v-model="selectedCountries"
+          :items="countryOptions"
+          label="Land"
+          multiple
+          chips
+          closable-chips
+          clearable
+          density="compact"
+          class="filter-dropdown mb-4"
+          :menu-props="menuProps"
         >
-            <template #prepend-item>
+          <template #prepend-item>
             <v-list-item @click="toggleAllCountries">
-                <template #prepend>
+              <template #prepend>
                 <v-checkbox
-                    :model-value="likesAllCountries"
-                    :indeterminate="likesSomeCountries && !likesAllCountries"
-                    hide-details
+                  :model-value="likesAllCountries"
+                  :indeterminate="likesSomeCountries && !likesAllCountries"
+                  hide-details
                 />
-                </template>
-                <v-list-item-title>
+              </template>
+              <v-list-item-title>
                 {{ likesAllCountries ? 'Alle abwählen' : 'Alle auswählen' }}
-                </v-list-item-title>
+              </v-list-item-title>
             </v-list-item>
             <v-divider class="mt-2" />
-            </template>
+          </template>
         </v-select>
 
-        <!-- Emissionen-Filter als v-menu -->
+        <!-- Emissionen-Filter -->
         <v-menu
           v-model="showEmissionFilter"
           persistent
           :close-on-content-click="false"
           offset-y
-          max-width="300"
+          max-width="100%"
+          class="filter-dropdown mb-4"
         >
           <template #activator="{ props }">
             <v-btn
-              color="primary"
               v-bind="props"
-              class="d-flex justify-space-between w-100"
+              text
+              block
+              append-icon="mdi-menu-down"
             >
-              <span>Emissionen</span>
-              <v-icon right>
-                {{ showEmissionFilter ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-              </v-icon>
+              Emissionen
             </v-btn>
           </template>
-
           <v-card class="pa-4">
             <v-range-slider
               v-model="emissionRange"
               :min="minEmission"
               :max="maxEmission"
-              step=100
+              step="100"
               hide-details
-              strict
             />
             <div class="text-center mt-2">
               {{ emissionRange[0] }} – {{ emissionRange[1] }} t/Jahr
@@ -81,157 +75,107 @@
         </v-menu>
       </v-col>
 
-      <!-- Rechte Spalte: Tabelle -->
+      <!-- ■ Rechte Spalte: Tabelle (75 % ab md) -->
       <v-col cols="12" md="9">
-        <vue-good-table
-          :columns="columns"
-          :rows="paginatedRows"
-          :total-rows="computedRows.length"
-          :pagination-options="{ enabled: true, perPage: perPage }"
-          :search-options="{ enabled: false }"
-          :sort-options="{ enabled: true }"
-          @page-change="onPageChange"
-          @per-page-change="onPerPageChange"
-          class="good-table"
+        <v-data-table
+          :headers="headers"
+          :items="computedRows"
+          :items-per-page="perPage"
+          class="fixed-table"
         >
-          <template #table-row="{ row, column, index }">
-            <span v-if="column.field === 'id'">
-              {{ (currentPage - 1) * perPage + index + 1 }}
-            </span>
-            <span v-else>
-              {{ row[column.field] }}
-            </span>
+          <template #item.id="{ index }">
+            {{ index + 1 }}
           </template>
-          <template #emptystate>
+          <template #no-data>
             <div class="text-center pa-4">Keine Daten gefunden.</div>
           </template>
-        </vue-good-table>
+        </v-data-table>
       </v-col>
     </v-row>
   </v-container>
 </template>
-
-
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { VueGoodTable } from 'vue-good-table-next'
-import 'vue-good-table-next/dist/vue-good-table-next.css'
+import { ref, computed } from 'vue'
 
 // Rohdaten
 const rawRows = [
-  { country: 'Deutschland', company: 'Auto AG',            emissions: 1200000 },
-  { country: 'USA',         company: 'Energy Corp',        emissions: 2500000 },
-  { country: 'China',       company: 'Steel Ltd.',         emissions: 3000000 },
-  { country: 'Frankreich',  company: 'Wine Co.',           emissions:  450000 },
-  { country: 'Brasilien',   company: 'Agro S.A.',          emissions:  800000 },
-  { country: 'Indien',      company: 'Tech Solutions',     emissions:  600000 },
-  { country: 'Kanada',      company: 'Maple Works',        emissions:  200000 },
-  { country: 'Deutschland', company: 'Mustermann GmbH',    emissions:   40000 },
-  { country: 'USA',         company: 'Technology LLC',     emissions: 1750000 },
-  { country: 'China',       company: 'Tech Ltd.',          emissions: 3000000 },
-  { country: 'Frankreich',  company: 'Supplygood SE',      emissions:  450000 },
-  { country: 'Brasilien',   company: 'Brasilian Trade SA', emissions: 7600000 },
-  { country: 'Indien',      company: 'Consulting Pvt. Ltd.', emissions: 120000 },
-  { country: 'Kanada',      company: 'Canadian Trade LLC', emissions: 2200000 },
+  { country: 'Deutschland', company: 'Auto AG', emissions: 1200000 },
+  { country: 'USA', company: 'Energy Corp', emissions: 2500000 },
+  { country: 'China', company: 'Steel Ltd.', emissions: 3000000 },
+  { country: 'Frankreich', company: 'Wine Co.', emissions: 450000 },
+  { country: 'Brasilien', company: 'Agro S.A.', emissions: 800000 },
+  { country: 'Indien', company: 'Tech Solutions', emissions: 600000 },
+  { country: 'Kanada', company: 'Maple Works', emissions: 200000 },
+  { country: 'Deutschland', company: 'Mustermann GmbH', emissions: 40000 },
+  { country: 'USA', company: 'Technology LLC', emissions: 1750000 },
+  { country: 'China', company: 'Tech Ltd.', emissions: 3000000 },
+  { country: 'Frankreich', company: 'Supplygood SE', emissions: 450000 },
+  { country: 'Brasilien', company: 'Brasilian Trade SA', emissions: 7600000 },
+  { country: 'Indien', company: 'Consulting Pvt. Ltd.', emissions: 120000 },
+  { country: 'Kanada', company: 'Canadian Trade LLC', emissions: 2200000 },
 ]
 
-// Dynamische Länder-Liste
 const countryOptions = Array.from(new Set(rawRows.map(r => r.country))).sort()
-
-// Emissions-Min / -Max
 const emissionsValues = rawRows.map(r => r.emissions)
 const minEmission = Math.min(...emissionsValues)
 const maxEmission = Math.max(...emissionsValues)
 
-// Reaktive Filter-Zustände
 const selectedCountries = ref<string[]>([])
-const emissionRange    = ref<[number, number]>([minEmission, maxEmission])
-
-// Computed fürs „Select All“
-const likesAllCountries  = computed(() => selectedCountries.value.length === countryOptions.length)
-const likesSomeCountries = computed(() => selectedCountries.value.length > 0 && selectedCountries.value.length < countryOptions.length)
-
-// Funktion, die je nach Zustand alle Länder auswählt oder abwählt:
-function toggleAllCountries() {
-  if (likesAllCountries.value) {
-    selectedCountries.value = []
-  } else {
-    selectedCountries.value = [...countryOptions]
-  }
-}
-
-// Zustände für Dropdowns
-const showCountryFilter  = ref(false)
+const emissionRange = ref<[number, number]>([minEmission, maxEmission])
 const showEmissionFilter = ref(false)
 
-// Toggle-Funktion für Länder-Filter
-function toggleCountry(country: string) {
-  const idx = selectedCountries.value.indexOf(country)
-  if (idx >= 0) {
-    selectedCountries.value.splice(idx, 1)
-  } else {
-    selectedCountries.value.push(country)
-  }
+const likesAllCountries = computed(() => selectedCountries.value.length === countryOptions.length)
+const likesSomeCountries = computed(() => selectedCountries.value.length > 0 && !likesAllCountries.value)
+
+function toggleAllCountries() {
+  selectedCountries.value = likesAllCountries.value ? [] : [...countryOptions]
 }
 
-// Gefilterte Rows (ohne ID)
 const computedRows = computed(() =>
-  rawRows.filter(r => {
-    if (selectedCountries.value.length && !selectedCountries.value.includes(r.country))
-      return false
-    const [min, max] = emissionRange.value
-    if (r.emissions < min || r.emissions > max) return false
-    return true
-  })
+  rawRows.filter(r =>
+    (selectedCountries.value.length === 0 || selectedCountries.value.includes(r.country)) &&
+    r.emissions >= emissionRange.value[0] && r.emissions <= emissionRange.value[1]
+  )
 )
 
-// Pagination-State & -Slice
-const perPage     = ref(5)
-const currentPage = ref(1)
-const paginatedRows = computed(() => {
-  const start = (currentPage.value - 1) * perPage.value
-  return computedRows.value.slice(start, start + perPage.value)
-})
+const headers = ref([
+  { title: 'ID', key: 'id', width: '20px', align: 'start' },
+  { title: 'Land', key: 'country', width: '150px' },
+  { title: 'Unternehmen', key: 'company', width: '200px', align: 'start' },
+  { title: 'CO₂-Emissionen (t/Jahr)', key: 'emissions', width: '150px', align: 'start' },
+])
 
-// Spaltendefinition
-const columns = [
-  { label: 'ID',                        field: 'id',        sortable: false },
-  { label: 'Land',                      field: 'country',   sortable: true  },
-  { label: 'Unternehmen',               field: 'company',   sortable: true  },
-  { label: 'CO₂-Emissionen (t/Jahr)',   field: 'emissions', type: 'number', sortable: true, },
-]
+const perPage = 5
 
-// Pagination-Handler
-function onPageChange(params: { currentPage: number }) {
-  currentPage.value = params.currentPage
-}
-function onPerPageChange(params: { currentPerPage: number }) {
-  perPage.value     = params.currentPerPage
-  currentPage.value = 1
-}
+// — Dropdown-Props
+const menuProps = { offsetY: true, contentClass: 'my-select-menu' }
 
-// Emissions-Filter zurücksetzen
-function resetEmissionFilter() {
-  emissionRange.value = [minEmission, maxEmission]
-}
 </script>
 
 <style scoped>
-.mb-4 {
-  margin-bottom: 16px;
+/* ■ Entfernt alle festen Flex-Basis, nutzt Vuetify-Grid */
+
+/* ■ Breite auf 100 % */
+.v-container {
+  width: 100%;
 }
-.good-Table {
-    max-width: 600 px
+
+/* ■ Filter-Dropdowns füllen ihre Spalte */
+.filter-dropdown {
+  width: 100%;
 }
+
+/* ■ Data-Table: Table-Layout fixed, füllt Spalte */
+.fixed-table {
+  width: 100%;
+}
+.fixed-table table {
+  table-layout: fixed;
+}
+
+/* ■ Begrenzung nur im Dropdown-Menü */
 .my-select-menu {
-    max-width: 300px !important;
-    min-hegith: 200px !important;
-    overflow-y: auto;
-}
-.pa-4 {
-  padding: 16px;
-}
-.grey.lighten-3 {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  max-height: 200px;
+  overflow-y: auto;
 }
 </style>
