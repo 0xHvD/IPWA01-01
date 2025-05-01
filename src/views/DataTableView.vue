@@ -3,7 +3,7 @@
     <v-row no-gutters>
       <!-- Linke Spalte: Filter (25 % ab md) -->
       <v-col cols="12" md="3" class="pr-4">
-        <h3 class="mb-4">Filter</h3>
+      <h3 class="mb-4">Filter</h3>
 
         <!-- Länder-Filter -->
         <v-select
@@ -11,8 +11,6 @@
           :items="countryOptions"
           label="Land"
           multiple
-          chips
-          closable-chips
           clearable
           density="compact"
           class="filter-dropdown mb-4"
@@ -35,7 +33,7 @@
           </template>
         </v-select>
 
-        <!-- Emissionen-Filter -->
+<!-- Emissionen-Filter -->
         <v-menu
           v-model="showEmissionFilter"
           persistent
@@ -49,39 +47,42 @@
               v-bind="props"
               text
               block
+              class="d-flex justify-space-between align-center"
               append-icon="mdi-menu-down"
             >
               Emissionen
             </v-btn>
-          </template>
-          <v-card class="pa-4">
-            <v-range-slider
-              v-model="emissionRange"
-              :min="minEmission"
-              :max="maxEmission"
-              step="100"
-              hide-details
-            />
-            <div class="text-center mt-2">
-              {{ emissionRange[0] }} – {{ emissionRange[1] }} t/Jahr
-            </div>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn text small @click="resetEmissionFilter">
-                Zurücksetzen
-              </v-btn>
-            </v-card-actions>
-          </v-card>
+            </template>
+
+            <v-card class="pa-4">
+                <v-range-slider
+                v-model="emissionRange"
+                :min="minEmission"
+                :max="maxEmission"
+                step="1000"
+                strict
+                hide-details
+                />
+                <div class="text-center mt-2">
+                {{ emissionRange[0] }} – {{ emissionRange[1] }} t/Jahr
+                </div>
+                <v-card-actions>
+                <v-spacer />
+                <v-btn text small @click="resetEmissionFilter">
+                    Zurücksetzen
+                </v-btn>
+                </v-card-actions>
+            </v-card>
         </v-menu>
       </v-col>
 
-      <!-- ■ Rechte Spalte: Tabelle (75 % ab md) -->
+      <!-- Rechte Spalte: Tabelle -->
       <v-col cols="12" md="9">
         <v-data-table
           :headers="headers"
           :items="computedRows"
           :items-per-page="perPage"
-          class="fixed-table"
+          class="fixed-table text-left"
         >
           <template #item.id="{ index }">
             {{ index + 1 }}
@@ -153,19 +154,18 @@ const menuProps = { offsetY: true, contentClass: 'my-select-menu' }
 </script>
 
 <style scoped>
-/* ■ Entfernt alle festen Flex-Basis, nutzt Vuetify-Grid */
 
-/* ■ Breite auf 100 % */
+/* Container-Breite auf 100 % */
 .v-container {
   width: 100%;
 }
 
-/* ■ Filter-Dropdowns füllen ihre Spalte */
+/* Filter-Dropdowns füllen ihre Spalte */
 .filter-dropdown {
   width: 100%;
 }
 
-/* ■ Data-Table: Table-Layout fixed, füllt Spalte */
+/* Data-Table: Table-Layout fixed, füllt Spalte */
 .fixed-table {
   width: 100%;
 }
@@ -173,7 +173,7 @@ const menuProps = { offsetY: true, contentClass: 'my-select-menu' }
   table-layout: fixed;
 }
 
-/* ■ Begrenzung nur im Dropdown-Menü */
+/* Begrenzung nur im Dropdown-Menü */
 .my-select-menu {
   max-height: 200px;
   overflow-y: auto;
