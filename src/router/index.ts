@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
-import DataTableView from '@/views/DataTableView.vue'
+import Impressum      from '@/views/Impressum.vue'
+import Datenschutz    from '@/views/Datenschutz.vue'
+import UeberView from '@/views/Ueber.vue'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -12,15 +14,24 @@ const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
-    path: '/data',
-    name: 'Emissions',
-    component: DataTableView,
+    path: '/about',
+    name: 'About',
+    component: UeberView,
   },
+  {
+    path: '/impressum',
+    name: 'Impressum',
+    component: Impressum,
+  },
+  {
+    path: '/datenschutz',
+    name: 'Datenschutz',
+    component: Datenschutz,
+  },
+  // optional: Catch-All-Route oder 404-Page
 ]
 
-const router = createRouter({
-  history: createWebHistory(), // nutzt die HTML5-History-API
+export default createRouter({
+  history: createWebHistory(),
   routes,
 })
-
-export default router

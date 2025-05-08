@@ -1,4 +1,4 @@
-// Vuetify-Core
+// 1) Vuetify-Core
 @use 'vuetify/styles';
 
 // Reset & Basis-Typografie
@@ -26,6 +26,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   width: 100%;
+  overflow: auto;
 }
 
 a {
@@ -68,8 +69,8 @@ button {
 }
 
 #app {
-  margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
+  margin: 0;
   text-align: center;
   width: 100%;
 }
@@ -133,4 +134,15 @@ select,
   .filter-select {
     max-width: 300px !important;
   }
+}
+
+html[dir="rtl"] .v-toolbar__content {
+  display: flex !important;
+  flex-direction: row-reverse !important;
+}
+
+/* — bei RTL: nur die Nav-Group (Home/About/Globe) umdrehen: */
+html[dir="rtl"] .nav-group {
+  display: flex !important;
+  flex-direction: row-reverse !important;
 }

@@ -4,6 +4,7 @@ import App from './App.vue'
 import i18n from './plugins/i18n'
 
 // Styles
+import 'vuetify/styles'
 import './styles/main.scss'        // Globales SCSS (inkl. Vuetify-Styles)
 
 // Plugins

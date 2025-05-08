@@ -10,8 +10,9 @@ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
 export default createVuetify({
   components,
   directives,
+
   theme: {
-    // Setze initiales Theme
+    // Setze initiales Theme basierend auf OS-Einstellung
     defaultTheme: prefersDark ? 'dark' : 'light',
     themes: {
       light: {

@@ -1,7 +1,33 @@
 {
-    "menu": {
-      "home": "Startseite",
-      "data": "Daten"
-    }
-  }
-  
+  "welcome":           "Willkommen zum CO₂-Footprint Dashboard",
+  "intro":             "Hier findest du eine interaktive Übersicht der Emissionen verschiedener Unternehmen.",
+  "filter": {
+    "title":          "Filter",
+    "country":        "LAND",
+    "company":        "UNTERNEHMEN",
+    "emissions":      "EMISSIONEN",
+    "selectAll":      "Alle auswählen",
+    "unselectAll":    "Alle abwählen",
+    "reset":          "Zurücksetzen"
+  },
+  "table": {
+    "country":        "Land",
+    "company":        "Unternehmen",
+    "emissions":      "CO₂-Emissionen (t/Jahr)",
+    "noData":         "Keine Daten gefunden."
+  },
+  "menu": {
+    "home":           "Start",
+    "about":          "Über",
+    "language":       "Sprache"
+  },
+  "about": {
+    "title":          "Über diese Anwendung",
+    "content":        "Dies ist die Über-Seite mit Informationen zur App."
+  },
+  "appTitle":         "CO₂-Dashboard",
+  "imprint":          "Impressum",
+  "privacy":          "Datenschutz",
+  "imprintContent":   "Dies ist ein Beispiel-Impressum.",
+  "privacyContent":   "Dies ist eine Beispiel-Datenschutzerklärung."
+}
