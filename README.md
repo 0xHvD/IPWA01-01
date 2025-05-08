@@ -25,6 +25,7 @@ npm install
 
 # 3. Lokalen Entwicklungsserver starten
 npm run dev
+```
 
 
 ---
