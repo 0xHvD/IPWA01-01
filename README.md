@@ -1,5 +1,32 @@
-# Vue 3 + TypeScript + Vite
+# CO₂-Footprint Dashboard 🌍
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Dieses Projekt ist ein interaktives Dashboard zur Visualisierung von CO₂-Emissionen verschiedener Unternehmen. Es wurde mit [Vue 3](https://vuejs.org/), [Vite](https://vitejs.dev/), [Vuetify 3](https://vuetifyjs.com/) und [vue-i18n](https://kazupon.github.io/vue-i18n/) erstellt.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## 🔧 Voraussetzungen
+
+Stelle sicher, dass [Node.js](https://nodejs.org/) und [npm](https://www.npmjs.com/) auf deinem System installiert sind.
+
+Empfohlen:
+
+- Node.js Version ≥ 18
+- npm Version ≥ 9
+
+---
+
+## Projekt lokal starten
+
+```bash
+# 1. Projekt klonen
+git clone https://github.com/dein-benutzername/co2-footprint-dashboard.git
+cd co2-footprint-dashboard
+
+# 2. Abhängigkeiten installieren
+npm install
+
+# 3. Lokalen Entwicklungsserver starten
+npm run dev
+
+
+---
+
+Dieser Code ist meine Leistung für das Modul IPWA01-01 Programmierung von Webanwendungsoberflächen, Aufgabenstellung 1: CO₂-Footprint.
