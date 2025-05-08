@@ -133,7 +133,6 @@ import svgicon from '@jamescoyle/vue-icon'
 
 .nav-btn {
   color: inherit;
-  margin: 0 8px;
 }
 
 .globe-image {
