@@ -7,18 +7,16 @@ import { dirname, resolve } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-
 export default defineConfig({
   plugins: [
     vue(),
     VueI18n({
-      // Pfad zu deinen JSON-Sprachdateien
-      include: new URL('./src/locales/**', import.meta.url).pathname
+      include: resolve(__dirname, 'src/locales/**'),
     })
   ],
   resolve: {
     alias: {
-      '@': new URL('./src', import.meta.url).pathname,
+      '@': resolve(__dirname, 'src'),
     },
   },
 })
