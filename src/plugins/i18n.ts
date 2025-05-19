@@ -3,9 +3,9 @@ import de from '@/locales/de.json'
 import en from '@/locales/en.json'
 
 export default createI18n({
-  legacy: false,               // Composition API
+  legacy: false, // Composition API
   locale: navigator.language.split('-')[0] || 'de',
   fallbackLocale: 'en',
-  globalInjection: true,       // ermöglicht $t überall
+  globalInjection: true, // ermöglicht $t überall
   messages: { de, en },
 })

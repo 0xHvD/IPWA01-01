@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
-import Impressum      from '@/views/Impressum.vue'
-import Datenschutz    from '@/views/Datenschutz.vue'
+import Impressum from '@/views/Impressum.vue'
+import Datenschutz from '@/views/Datenschutz.vue'
 import UeberView from '@/views/Ueber.vue'
 
 const routes: RouteRecordRaw[] = [

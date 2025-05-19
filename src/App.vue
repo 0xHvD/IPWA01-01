@@ -2,11 +2,7 @@
   <v-app :dir="isRtl ? 'rtl' : 'ltr'">
     <v-app-bar app color="primary" dark>
       <router-link to="/" class="title-link">
-          <svgicon
-            class="logo-image"
-            type="mdi"
-            :path="mdiMoleculeCo2"
-          />
+        <svgicon class="logo-image" type="mdi" :path="mdiMoleculeCo2" />
         <span class="app-title">{{ i18n.t('appTitle') }}</span>
       </router-link>
 
@@ -14,14 +10,25 @@
 
       <!-- Desktop-Menü -->
       <v-toolbar-items class="d-none d-md-flex nav-group">
-        <v-switch v-model="isRtl" inset class="switch" :label="isRtl ? 'RTL' : 'LTR'" />
+        <v-switch
+          v-model="isRtl"
+          inset
+          class="switch"
+          :label="isRtl ? 'RTL' : 'LTR'"
+        />
         <v-btn text to="/" class="nav-btn">{{ i18n.t('menu.home') }}</v-btn>
-        <v-btn text to="/about" class="nav-btn">{{ i18n.t('menu.about') }}</v-btn>
+        <v-btn text to="/about" class="nav-btn">{{
+          i18n.t('menu.about')
+        }}</v-btn>
 
         <v-menu offset-y>
           <template #activator="{ props }">
             <v-btn icon v-bind="props" class="globe-btn">
-              <img :src="currentGlobeIcon" alt="Sprache wählen" class="globe-image" />
+              <img
+                :src="currentGlobeIcon"
+                alt="Sprache wählen"
+                class="globe-image"
+              />
             </v-btn>
           </template>
           <v-list dense>
@@ -49,16 +56,25 @@
       dark
     >
       <v-list>
-        <v-list-item to="/" @click="drawer = false">{{ i18n.t('menu.home') }}</v-list-item>
-        <v-list-item to="/about" @click="drawer = false">{{ i18n.t('menu.about') }}</v-list-item>
+        <v-list-item to="/" @click="drawer = false">{{
+          i18n.t('menu.home')
+        }}</v-list-item>
+        <v-list-item to="/about" @click="drawer = false">{{
+          i18n.t('menu.about')
+        }}</v-list-item>
 
         <v-divider class="my-2" />
 
-        <v-list-subheader class="language-subheader">{{ i18n.t('menu.language') }}</v-list-subheader>
+        <v-list-subheader class="language-subheader">{{
+          i18n.t('menu.language')
+        }}</v-list-subheader>
         <v-list-item
           v-for="lang in languages"
           :key="lang.value"
-          @click="changeLanguage(lang.value); drawer = false"
+          @click="
+            changeLanguage(lang.value);
+            drawer = false
+          "
         >
           <v-list-item-title>{{ lang.label }}</v-list-item-title>
         </v-list-item>
@@ -72,7 +88,7 @@
     </v-navigation-drawer>
     <v-main>
       <router-view />
-      <Footer/>
+      <Footer />
     </v-main>
   </v-app>
 </template>
@@ -91,9 +107,13 @@ const theme = useTheme()
 
 // RTL/LTR Steuerung
 const isRtl = ref(false)
-watch(isRtl, rtl => {
-  document.documentElement.setAttribute('dir', rtl ? 'rtl' : 'ltr')
-}, { immediate: true })
+watch(
+  isRtl,
+  (rtl) => {
+    document.documentElement.setAttribute('dir', rtl ? 'rtl' : 'ltr')
+  },
+  { immediate: true },
+)
 
 // Drawer Zustand
 const drawer = ref(false)
@@ -104,20 +124,27 @@ const languages = [
   { label: 'English', value: 'en' },
 ]
 
-const changeLanguage = (lang: string) => { i18n.locale.value = lang }
-const toggleDirection = () => { isRtl.value = !isRtl.value }
+const changeLanguage = (lang: string) => {
+  i18n.locale.value = lang
+}
+const toggleDirection = () => {
+  isRtl.value = !isRtl.value
+}
 
 const currentGlobeIcon = computed(() =>
-  theme.global.name.value === 'light' ? globeWhite : globeColor
+  theme.global.name.value === 'light' ? globeWhite : globeColor,
 )
 
 import { mdiMoleculeCo2 } from '@mdi/js'
 
 import svgicon from '@jamescoyle/vue-icon'
-
 </script>
 
 <style scoped>
+.v-app {
+  margin: 0px 8px;
+}
+
 .title-link {
   display: flex;
   align-items: center;
@@ -126,7 +153,7 @@ import svgicon from '@jamescoyle/vue-icon'
 }
 
 .app-title {
-  margin-left: 8px;
+  margin: 8px;
   font-size: 1.25rem;
   font-weight: 500;
 }
@@ -145,16 +172,16 @@ import svgicon from '@jamescoyle/vue-icon'
   margin: 0 12px;
 }
 
-.d-none { 
-  display: none !important; 
+.d-none {
+  display: none !important;
 }
 
-.d-md-flex { 
-  display: flex !important; 
+.d-md-flex {
+  display: flex !important;
 }
 
-.d-md-none { 
-  display: none !important; 
+.d-md-none {
+  display: none !important;
 }
 
 .v-toolbar {
@@ -162,16 +189,17 @@ import svgicon from '@jamescoyle/vue-icon'
 }
 
 @media (max-width: 959px) {
-  .nav-group, html[dir="rtl"] .nav-group {
+  .nav-group,
+  html[dir='rtl'] .nav-group {
     display: none !important;
   }
 
   .d-md-none {
-    display: block !important; 
+    display: block !important;
   }
 
-  .d-md-flex { 
-    display: none !important; 
+  .d-md-flex {
+    display: none !important;
   }
 }
 @media (min-width: 959px) {
@@ -180,22 +208,20 @@ import svgicon from '@jamescoyle/vue-icon'
   }
 
   .d-md-none {
-    display: none !important; 
+    display: none !important;
   }
 
-  .d-md-flex { 
-    display: blflexock !important; 
+  .d-md-flex {
+    display: blflexock !important;
   }
 }
 
 .logo-image {
   width: 40px;
-  height: 40px; 
+  height: 40px;
 }
 
 .language-subheader {
   color: var(--v-theme-on-surface);
 }
-
 </style>
-

@@ -35,9 +35,10 @@
                 />
               </template>
               <v-list-item-title>
-                {{ likesAllCountries
-                  ? i18n.t('filter.unselectAll')
-                  : i18n.t('filter.selectAll')
+                {{
+                  likesAllCountries
+                    ? i18n.t('filter.unselectAll')
+                    : i18n.t('filter.selectAll')
                 }}
               </v-list-item-title>
             </v-list-item>
@@ -68,9 +69,10 @@
                 />
               </template>
               <v-list-item-title>
-                {{ likesAllCompanies
-                  ? i18n.t('filter.unselectAll')
-                  : i18n.t('filter.selectAll')
+                {{
+                  likesAllCompanies
+                    ? i18n.t('filter.unselectAll')
+                    : i18n.t('filter.selectAll')
                 }}
               </v-list-item-title>
             </v-list-item>
@@ -97,7 +99,7 @@
             >
               <span>{{ i18n.t('filter.emissions') }}</span>
               <template v-slot:append>
-              <v-icon size="24" color="black"</v-icon>
+                <v-icon size="24" color="black"></v-icon>
               </template>
             </v-btn>
           </template>
@@ -171,33 +173,37 @@ const rawRows = [
 ]
 
 // Filter-Optionen
-const countryOptions = Array.from(new Set(rawRows.map(r => r.country))).sort()
-const companyOptions = Array.from(new Set(rawRows.map(r => r.company))).sort()
+const countryOptions = Array.from(new Set(rawRows.map((r) => r.country))).sort()
+const companyOptions = Array.from(new Set(rawRows.map((r) => r.company))).sort()
 
 // Emissionswerte
-const emissionsValues = rawRows.map(r => r.emissions)
+const emissionsValues = rawRows.map((r) => r.emissions)
 const minEmission = Math.min(...emissionsValues)
 const maxEmission = Math.max(...emissionsValues)
 
 // Reaktive Filterzustände
 const selectedCountries = ref<string[]>([])
 const selectedCompanies = ref<string[]>([])
-const emissionRange     = ref<[number, number]>([minEmission, maxEmission])
-const showEmissionFilter= ref(false)
+const emissionRange = ref<[number, number]>([minEmission, maxEmission])
+const showEmissionFilter = ref(false)
 
 // “Alle auswählen” Checkbox-Logik (Länder)
-const likesAllCountries  = computed(() => selectedCountries.value.length === countryOptions.length)
-const likesSomeCountries = computed(() =>
-  selectedCountries.value.length > 0 && !likesAllCountries.value
+const likesAllCountries = computed(
+  () => selectedCountries.value.length === countryOptions.length,
+)
+const likesSomeCountries = computed(
+  () => selectedCountries.value.length > 0 && !likesAllCountries.value,
 )
 function toggleAllCountries() {
   selectedCountries.value = likesAllCountries.value ? [] : [...countryOptions]
 }
 
 // “Alle auswählen” Checkbox-Logik (Unternehmen)
-const likesAllCompanies  = computed(() => selectedCompanies.value.length === companyOptions.length)
-const likesSomeCompanies = computed(() =>
-  selectedCompanies.value.length > 0 && !likesAllCompanies.value
+const likesAllCompanies = computed(
+  () => selectedCompanies.value.length === companyOptions.length,
+)
+const likesSomeCompanies = computed(
+  () => selectedCompanies.value.length > 0 && !likesAllCompanies.value,
 )
 function toggleAllCompanies() {
   selectedCompanies.value = likesAllCompanies.value ? [] : [...companyOptions]
@@ -205,11 +211,15 @@ function toggleAllCompanies() {
 
 // Gefilterte Zeilen
 const computedRows = computed(() =>
-  rawRows.filter(r =>
-    (selectedCountries.value.length === 0 || selectedCountries.value.includes(r.country)) &&
-    (selectedCompanies.value.length === 0 || selectedCompanies.value.includes(r.company)) &&
-    r.emissions >= emissionRange.value[0] && r.emissions <= emissionRange.value[1]
-  )
+  rawRows.filter(
+    (r) =>
+      (selectedCountries.value.length === 0 ||
+        selectedCountries.value.includes(r.country)) &&
+      (selectedCompanies.value.length === 0 ||
+        selectedCompanies.value.includes(r.company)) &&
+      r.emissions >= emissionRange.value[0] &&
+      r.emissions <= emissionRange.value[1],
+  ),
 )
 
 // i18n im globalen Scope
@@ -218,8 +228,8 @@ const i18n = useI18n({ useScope: 'global' })
 // Übersetzte Header-Spaltendefinition
 const translatedHeaders = computed(() => [
   { title: '#', key: 'id', width: '20px', align: 'start', sortable: false },
-  { title: i18n.t('table.country'), key: 'country'  },
-  { title: i18n.t('table.company'), key: 'company'  },
+  { title: i18n.t('table.country'), key: 'country' },
+  { title: i18n.t('table.company'), key: 'company' },
   { title: i18n.t('table.emissions'), key: 'emissions', align: 'end' },
 ])
 
@@ -275,5 +285,4 @@ function resetEmissionFilter() {
 :deep(.filter-dropdown .v-field__clearable > .v-icon) {
   opacity: 1 !important;
 }
-
 </style>

@@ -101,7 +101,7 @@ body {
 input,
 textarea,
 select,
-[contenteditable="true"] {
+[contenteditable='true'] {
   caret-color: auto !important;
 }
 
@@ -136,13 +136,13 @@ select,
   }
 }
 
-html[dir="rtl"] .v-toolbar__content {
+html[dir='rtl'] .v-toolbar__content {
   display: flex !important;
   flex-direction: row-reverse !important;
 }
 
 /* — bei RTL: nur die Nav-Group (Home/About/Globe) umdrehen: */
-html[dir="rtl"] .nav-group {
+html[dir='rtl'] .nav-group {
   display: flex !important;
   flex-direction: row-reverse !important;
 }

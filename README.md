@@ -27,7 +27,6 @@ npm install
 npm run dev
 ```
 
-
 ---
 
 Dieser Code ist meine Leistung für das Modul IPWA01-01 Programmierung von Webanwendungsoberflächen, Aufgabenstellung 1: CO₂-Footprint.

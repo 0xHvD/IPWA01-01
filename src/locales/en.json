@@ -1,34 +1,33 @@
 {
-    "welcome": "Welcome to the CO₂-Footprint Dashboard",
-    "intro": "Here you will find an interactive overview of emissions from various companies.",
-    "filter": {
-      "title": "Filter",
-      "country": "COUNTRY",
-      "company": "COMPANY",
-      "emissions": "Emissions",
-      "selectAll": "Select All",
-      "unselectAll": "Unselect All",
-      "reset": "Reset"
-    },
-    "table": {
-      "country": "Country",
-      "company": "Company",
-      "emissions": "CO₂ Emissions (t/year)",
-      "noData": "No data found."
-    },
-    "menu": {
-      "home": "Home",
-      "about": "About",
-      "language": "Language"
-    },
-    "about": {
-      "title": "About this application",
-      "content": "This is the About page with information about the app."
-    },
-    "appTitle": "CO₂-Dashboard",
-    "imprint": "Imprint",
-    "privacy": "Privacy",
-    "imprintContent": "This is a sample imprint.",
-    "privacyContent": "This is a sample privacy policy."
-  }
-  
+  "welcome": "Welcome to the CO₂-Footprint Dashboard",
+  "intro": "Here you will find an interactive overview of emissions from various companies.",
+  "filter": {
+    "title": "Filter",
+    "country": "COUNTRY",
+    "company": "COMPANY",
+    "emissions": "Emissions",
+    "selectAll": "Select All",
+    "unselectAll": "Unselect All",
+    "reset": "Reset"
+  },
+  "table": {
+    "country": "Country",
+    "company": "Company",
+    "emissions": "CO₂ Emissions (t/year)",
+    "noData": "No data found."
+  },
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "language": "Language"
+  },
+  "about": {
+    "title": "About this application",
+    "content": "This is the About page with information about the app."
+  },
+  "appTitle": "CO₂-Dashboard",
+  "imprint": "Imprint",
+  "privacy": "Privacy",
+  "imprintContent": "This is a sample imprint.",
+  "privacyContent": "This is a sample privacy policy."
+}
