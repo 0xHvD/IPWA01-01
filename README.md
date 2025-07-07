@@ -17,7 +17,7 @@ Empfohlen:
 
 ```bash
 # 1. Projekt klonen
-git clone https://github.com/dein-benutzername/co2-footprint-dashboard.git
+git clone https://github.com/0xHvD/co2-footprint-dashboard.git
 cd co2-footprint-dashboard
 
 # 2. Abhängigkeiten installieren
